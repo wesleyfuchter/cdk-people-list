@@ -36,3 +36,7 @@ jobs:
       - name: Deploy CDN
         run: npm run deploy
         working-directory: ./example-content-delivery-network
+
+      - name: Run UI Tests
+        run: npm run test
+        working-directory: ./ui
