@@ -32,7 +32,7 @@ class ExampleContentDeliveryNetworkStack extends Stack {
       destinationBucket: websiteBucket,
     });
 
-    const certificate = Certificate.fromCertificateArn(this, `certificate-${namespace}`, 'arn:aws:acm:us-east-1:760736027183:certificate/a303a094-4098-43f1-87fc-a152bfe55d90');
+    const certificate = Certificate.fromCertificateArn(this, `certificate-${namespace}`, 'arn:aws:acm:us-east-1:760736027183:certificate/4dd14c8f-0652-4228-907d-b6bb3a28ace8');
 
     const distribution = new CloudFrontWebDistribution(this, `cloud-front-distribution-${namespace}`, {
       comment: `cloud-front-distribution-${namespace}`,
