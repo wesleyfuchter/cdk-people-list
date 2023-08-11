@@ -12,7 +12,7 @@ function App() {
           {' '}
           <code>src/App.js</code>
           {' '}
-          and save to reload. Prod
+          and save to reload. Vasco
         </p>
         <a
           className="App-link"
