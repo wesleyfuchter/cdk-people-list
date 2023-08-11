@@ -33,6 +33,6 @@ jobs:
         run: npm install
         working-directory: ./example-content-delivery-network
 
-      - name: Install Dependencies CDN
+      - name: Deploy CDN
         run: npm run deploy
         working-directory: ./example-content-delivery-network
