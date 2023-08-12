@@ -21,7 +21,7 @@ function App({ lang }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          { lang === 'BR' ? 'Aprenda React' : 'Learn React' } Botafogo
+          { lang === 'BR' ? 'Aprenda React' : 'Learn React' } Real Madrid pode esperar
         </a>
       </header>
     </div>
