@@ -4,7 +4,6 @@ import logo from './logo.svg';
 import './App.css';
 
 function App({ lang }) {
-  console.log('lang', lang);
   return (
     <div className="App">
       <header className="App-header">
