@@ -1,0 +1,58 @@
+name: Deploy to Stage
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  deploy:
+    env:
+      NAMESPACE: pr${{ github.event.number }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Install Dependencies UI
+        run: npm install
+        working-directory: ./ui
+
+      - name: Run Linter
+        run: npm run lint
+        working-directory: ./ui
+
+      - name: Run UI Tests
+        run: npm run test
+        working-directory: ./ui
+
+      - name: Build UI
+        run: npm run build
+        working-directory: ./ui
+
+      - name: Install Dependencies CDN
+        run: npm install
+        working-directory: ./example-content-delivery-network
+
+      - name: Deploy CDN
+        run: npm run deploy
+        working-directory: ./example-content-delivery-network
+
+      - name: Invalidate Caches
+        run: aws cloudfront create-invalidation --distribution-id $(aws cloudfront list-distributions --query="DistributionList.Items[?Comment=='cloud-front-distribution-${{ env.NAMESPACE }}'] | [0].Id" | tr -d '"') --paths "/*"
+        working-directory: ./example-content-delivery-network
+
+      - name: Comment PR
+        uses: mshick/add-pr-comment@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          message: Namespace ${{ env.NAMESPACE }} successfully deployed You can access the application [here](https://${{ env.NAMESPACE }}.${{ secrets.DEVELOPMENT_DOMAIN }})
+          allow-repeats: true
