@@ -3,6 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  const lang = 'BR';
+
   return (
     <div className="App">
       <header className="App-header">
@@ -20,7 +23,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Aprenda React
+          { lang === 'BR' ? 'Aprenda React' : 'Learn React' }
         </a>
       </header>
     </div>
