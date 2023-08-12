@@ -44,3 +44,7 @@ jobs:
       - name: Deploy CDN
         run: npm run deploy
         working-directory: ./example-content-delivery-network
+
+      - name: Invalidate Caches
+        run: aws cloudfront create-invalidation --distribution-id $(aws cloudfront list-distributions --query="DistributionList.Items[?Comment=='cloud-front-distribution-${{ env.NAMESPACE }}'] | [0].Id" | tr -d '"') --paths "/*"
+        working-directory: ./example-content-delivery-network
