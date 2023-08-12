@@ -1,11 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-
-  const lang = 'BR';
-
+function App({ lang }) {
+  console.log('lang', lang);
   return (
     <div className="App">
       <header className="App-header">
@@ -29,5 +28,9 @@ function App() {
     </div>
   );
 }
+
+App.propTypes = {
+  lang: PropTypes.string.isRequired,
+};
 
 export default App;
